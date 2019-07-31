@@ -1,6 +1,10 @@
 import React from 'react'
-import axios from 'axios'
+import { Link } from 'react-router-dom'
 
+import axios from 'axios'
+import _ from 'lodash'
+
+import Card from './Card'
 
 class SpellsIndex extends React.Component {
   constructor(){
@@ -35,9 +39,25 @@ class SpellsIndex extends React.Component {
   }
 
   render() {
-    console.log(this.state)
+    if (!this.state.spells) return null
     return (
-      null
+      <div>
+        {_.map(this.state.spells, (spell, i) =>
+          <Link to={`/spells/${i}`}>
+            <Card
+              key={i}
+              name={spell.name}
+              desc={spell.desc}
+              range={spell.range}
+              duration={spell.duration}
+              castingTime={spell.casting_time}
+              level={spell.level}
+              school={spell.school}
+              dndClass={spell.dnd_class}
+            />
+          </Link>
+        )}
+      </div>
     )
   }
 
