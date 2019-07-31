@@ -65,7 +65,6 @@ class SpellsIndex extends React.Component {
               </div>
             </div>
           </div>
-
           <div className="columns is-multiline">
             {_.map(this.filterCards(), (spell, i) =>
               <div className="column is-half-tablet is-one-quarter-desktop" key={i}>
