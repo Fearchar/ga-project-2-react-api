@@ -10,7 +10,9 @@ class SpellsIndex extends React.Component {
   constructor(){
     super()
     this.state = {}
+    this.storeSearch = this.storeSearch.bind(this)
   }
+
 
   getSpells() {
     function makeRequest(url, spells=[]) {
@@ -35,29 +37,57 @@ class SpellsIndex extends React.Component {
         localStorage.setItem('spells', JSON.stringify(spells))
         this.setState({ spells })
       })
+  }
 
+  storeSearch(e) {
+    this.setState({ searchTerm: e.target.value })
+  }
+
+  filterCards() {
+    const re = new RegExp(this.state.searchTerm, 'i')
+    // const [field, order] = this.state.sortTerm.split('|')
+    const filterCards = _.filter(this.state.spells, card => {
+      return re.test(card.name) || re.test(card.school) || re.test(card.dnd_class)
+    })
+    // const sortedCards = _.orderBy(filterCards, [field], [order])
+    return filterCards
   }
 
   render() {
     if (!this.state.spells) return null
     return (
-      <div>
-        {_.map(this.state.spells, (spell, i) =>
-          <Link to={`/spells/${i}`}>
-            <Card
-              key={i}
-              name={spell.name}
-              desc={spell.desc}
-              range={spell.range}
-              duration={spell.duration}
-              castingTime={spell.casting_time}
-              level={spell.level}
-              school={spell.school}
-              dndClass={spell.dnd_class}
-            />
-          </Link>
-        )}
-      </div>
+      <section className="section">
+        <div className="container">
+          <div className="columns">
+            <div className="column">
+              <div className="field">
+                <input placeholder="search" className="input" onKeyUp={this.storeSearch}/>
+              </div>
+            </div>
+          </div>
+
+          <div className="columns is-multiline">
+            {_.map(this.filterCards(), (spell, i) =>
+              <div className="column is-half-tablet is-one-quarter-desktop" key={i}>
+                <Link to={`/spells/${i}`}>
+                  <Card
+                    name={spell.name}
+                    desc={spell.desc}
+                    range={spell.range}
+                    duration={spell.duration}
+                    castingTime={spell.casting_time}
+                    level={spell.level}
+                    school={spell.school}
+                    dndClass={spell.dnd_class}
+                  />
+                </Link>
+              </div>
+            )}
+          </div>
+        </div>
+
+      </section>
+
     )
   }
 
