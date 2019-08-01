@@ -48,12 +48,13 @@ class SpellsIndex extends React.Component {
   }
 
   filterCards() {
-    const re = new RegExp(this.state.formData.search, 'i')
+    const formData = this.state.formData
+    const re = new RegExp(formData.search, 'i')
     const filterCards = _.filter(this.state.spells, card => {
       return (
-        card.level === this.state.formData.level &&
-        card.dnd_class.includes(this.state.formData.class) &&
-        card.school === this.state.formData.school &&
+        (!formData.level || card.level === formData.level) &&
+        (!formData.class || card.dnd_class.includes(formData.class)) &&
+        (!formData.school || card.school === formData.school) &&
         (re.test(card.name) || re.test(card.school) || re.test(card.dnd_class))
       )
     })
