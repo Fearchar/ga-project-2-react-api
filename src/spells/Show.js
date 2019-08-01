@@ -21,6 +21,7 @@ class SpellShow extends React.Component {
       <section className="section">
         <button className="button is-primary" onClick={() => this.goTo('spells')}>◀</button>
         <Card
+          open={true}
           name={this.state.spell.name}
           desc={this.state.spell.desc}
           range={this.state.spell.range}

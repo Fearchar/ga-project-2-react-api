@@ -9,10 +9,13 @@ import Card from './Card'
 class SpellsIndex extends React.Component {
   constructor(){
     super()
-    this.state = {}
+    this.state = {
+      spells: {},
+      openDescs: []
+    }
     this.storeSearch = this.storeSearch.bind(this)
+    this.toggleDesc = this.toggleDesc.bind(this)
   }
-
 
   getSpells() {
     function makeRequest(url, spells=[]) {
@@ -27,7 +30,6 @@ class SpellsIndex extends React.Component {
   }
 
   componentDidMount(){
-
     const spells = localStorage.getItem('spells')
 
     if(spells) return this.setState({ spells: JSON.parse(spells) })
@@ -53,6 +55,17 @@ class SpellsIndex extends React.Component {
     return filterCards
   }
 
+  toggleDesc(isOpen, spellIndex) {
+    if (!isOpen) {
+      this.setState({ openDescs: [...this.state.openDescs, spellIndex] })
+    } else {
+      const toRemove = this.state.openDescs.indexOf(spellIndex)
+      const slice1 = this.state.openDescs.slice(0, toRemove)
+      const slice2 = this.state.openDescs.slice(toRemove + 1)
+      this.setState({ openDescs: [...slice1, ...slice2] })
+    }
+  }
+
   render() {
     if (!this.state.spells) return null
     return (
@@ -68,32 +81,27 @@ class SpellsIndex extends React.Component {
           <div className="columns is-multiline">
             {_.map(this.filterCards(), (spell, i) =>
               <div className="column is-half-tablet is-one-quarter-desktop" key={i}>
-                <Link to={`/spells/${i}`}>
-                  <Card
-                    name={spell.name}
-                    desc={spell.desc}
-                    range={spell.range}
-                    duration={spell.duration}
-                    castingTime={spell.casting_time}
-                    level={spell.level}
-                    school={spell.school}
-                    dndClass={spell.dnd_class}
-                  />
-                </Link>
+                <Card
+                  spellIndex={i}
+                  open={this.state.openDescs.includes(i)}
+                  name={spell.name}
+                  desc={spell.desc}
+                  range={spell.range}
+                  duration={spell.duration}
+                  castingTime={spell.casting_time}
+                  level={spell.level}
+                  school={spell.school}
+                  dndClass={spell.dnd_class}
+                  toggleDesc={this.toggleDesc}
+                />
               </div>
             )}
           </div>
         </div>
-
       </section>
 
     )
   }
-
-
-
 }
-
-
 
 export default SpellsIndex

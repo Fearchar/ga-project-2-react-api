@@ -1,14 +1,19 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-const Card = ({ i, name, desc, range, duration, castingTime, level, school, dndClass }) => {
+const Card = ({ spellIndex, open, name, desc, range, duration, castingTime, level, school, dndClass, toggleDesc}) => {
   return(
     <div className="card">
-      <div className="card-header">
-        <div className="card-header-title">{name}</div>
-      </div>
+      <Link to={`/spells/${spellIndex}`}>
+        <div className="card-header">
+          <div className="card-header-title">{name}</div>
+        </div>
+      </Link>
       <div className="card-content">
         <div className="content">
-          <p>{desc}</p>
+          <p
+            onClick={toggleDesc ? () => toggleDesc(open, spellIndex) : null}
+          >{open ? desc : `${desc.slice(0,150)}...`}</p>
           <p>{range}</p>
           <p>{duration}</p>
           <p>{castingTime}</p>
