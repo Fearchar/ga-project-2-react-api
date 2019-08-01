@@ -69,7 +69,6 @@ class SpellsIndex extends React.Component {
       const toRemove = this.state.openDescs.indexOf(spellSlug)
       const slice1 = _.slice(this.state.openDescs, [0], [toRemove])
       const slice2 = _.slice(this.state.openDescs, [toRemove + 1])
-      this.state.openDescs.slice(toRemove + 1)
       this.setState({ openDescs: [...slice1, ...slice2] })
     }
   }
@@ -149,7 +148,7 @@ class SpellsIndex extends React.Component {
               <div className="column is-half-tablet is-one-quarter-desktop" key={spell.slug}>
                 <Card
                   slug={spell.slug}
-                  open={this.state.openDescs.includes(this.slug)}
+                  isOpen={this.state.openDescs.includes(spell.slug)}
                   name={spell.name}
                   desc={spell.desc}
                   range={spell.range}
