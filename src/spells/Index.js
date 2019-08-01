@@ -11,9 +11,11 @@ class SpellsIndex extends React.Component {
     super()
     this.state = {
       spells: {},
-      openDescs: []
+      openDescs: [],
+      formData: {}
     }
-    this.storeSearch = this.storeSearch.bind(this)
+
+    this.storeFilter = this.storeFilter.bind(this)
     this.toggleDesc = this.toggleDesc.bind(this)
   }
 
@@ -41,15 +43,19 @@ class SpellsIndex extends React.Component {
       })
   }
 
-  storeSearch(e) {
-    this.setState({ searchTerm: e.target.value })
+  storeFilter(e) {
+     this.setState({formData:{ ...this.state.formData, [e.target.name]: e.target.value }})
   }
 
   filterCards() {
-    const re = new RegExp(this.state.searchTerm, 'i')
-    // const [field, order] = this.state.sortTerm.split('|')
+    const re = new RegExp(this.state.formData.search, 'i')
     const filterCards = _.filter(this.state.spells, card => {
-      return re.test(card.name) || re.test(card.school) || re.test(card.dnd_class)
+      return (
+        card.level === this.state.formData.level &&
+        card.dnd_class.includes(this.state.formData.class) &&
+        card.school === this.state.formData.school &&
+        (re.test(card.name) || re.test(card.school) || re.test(card.dnd_class))
+      )
     })
     // const sortedCards = _.orderBy(filterCards, [field], [order])
     return filterCards
@@ -60,13 +66,15 @@ class SpellsIndex extends React.Component {
       this.setState({ openDescs: [...this.state.openDescs, spellIndex] })
     } else {
       const toRemove = this.state.openDescs.indexOf(spellIndex)
-      const slice1 = this.state.openDescs.slice(0, toRemove)
-      const slice2 = this.state.openDescs.slice(toRemove + 1)
+      const slice1 = _.slice(this.state.openDescs, [0], [toRemove])
+      const slice2 = _.slice(this.state.openDescs, [toRemove + 1])
+      this.state.openDescs.slice(toRemove + 1)
       this.setState({ openDescs: [...slice1, ...slice2] })
     }
   }
 
   render() {
+    console.log(this.state)
     if (!this.state.spells) return null
     return (
       <section className="section">
@@ -74,10 +82,67 @@ class SpellsIndex extends React.Component {
           <div className="columns">
             <div className="column">
               <div className="field">
-                <input placeholder="search" className="input" onKeyUp={this.storeSearch}/>
+                <input name="search" placeholder="search" className="input" onChange={this.storeFilter}/>
               </div>
             </div>
           </div>
+
+          <div className="column">
+            <div className="field">
+              <div className="select is-fullwidth">
+                <select name="level" onChange={this.storeFilter}>
+                  <option value="">All-levels</option>
+                  <option value="Cantrip">Cantrip</option>
+                  <option value="1st-level">1st-Level</option>
+                  <option value="2nd-level">2nd-Level</option>
+                  <option value="3rd-level">3rd-Level</option>
+                  <option value="4th-level">4th-Level</option>
+                  <option value="5th-level">5th-Level</option>
+                  <option value="6th-level">6th-Level</option>
+                  <option value="7th-level">7th-Level</option>
+                  <option value="8th-level">8th-Level</option>
+                  <option value="9th-level">9th-Level</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="column">
+            <div className="field">
+              <div className="select is-fullwidth">
+                <select name="class" onChange={this.storeFilter}>
+                  <option value="">All-Classes</option>
+                  <option value="Bard">Bard</option>
+                  <option value="Cleric">Cleric</option>
+                  <option value="Druid">Druid</option>
+                  <option value="Paladin">Paladin</option>
+                  <option value="Ranger">Ranger</option>
+                  <option value="Sorcerer">Sorcerer</option>
+                  <option value="Warlock">Warlock</option>
+                  <option value="Wizard">Wizard</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div className="column">
+            <div className="field">
+              <div className="select is-fullwidth">
+                <select name="school" onChange={this.storeFilter}>
+                  <option value="">All-Schools</option>
+                  <option value="Abjuration">Abjuration</option>
+                  <option value="Conjuration">Conjuration</option>
+                  <option value="Divination">Divination</option>
+                  <option value="Enchantment">Enchantment</option>
+                  <option value="Evocation">Evocation</option>
+                  <option value="Illusion">Illusion</option>
+                  <option value="Necromancy">Necromancy</option>
+                  <option value="Transmutaion">Transmutaion</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
           <div className="columns is-multiline">
             {_.map(this.filterCards(), (spell, i) =>
               <div className="column is-half-tablet is-one-quarter-desktop" key={i}>
