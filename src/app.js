@@ -15,7 +15,7 @@ class App extends React.Component {
     return (
       <HashRouter>
         <Switch>
-          <Route path="/spells/:i" component={SpellShow}/>
+          <Route path="/spells/:slug" component={SpellShow}/>
           <Route path="/spells" component={SpellsIndex} />
         </Switch>
       </HashRouter>

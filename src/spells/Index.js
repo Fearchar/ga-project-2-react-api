@@ -62,11 +62,11 @@ class SpellsIndex extends React.Component {
     return filterCards
   }
 
-  toggleDesc(isOpen, spellIndex) {
+  toggleDesc(isOpen, spellSlug) {
     if (!isOpen) {
-      this.setState({ openDescs: [...this.state.openDescs, spellIndex] })
+      this.setState({ openDescs: [...this.state.openDescs, spellSlug] })
     } else {
-      const toRemove = this.state.openDescs.indexOf(spellIndex)
+      const toRemove = this.state.openDescs.indexOf(spellSlug)
       const slice1 = _.slice(this.state.openDescs, [0], [toRemove])
       const slice2 = _.slice(this.state.openDescs, [toRemove + 1])
       this.state.openDescs.slice(toRemove + 1)
@@ -145,11 +145,11 @@ class SpellsIndex extends React.Component {
           </div>
 
           <div className="columns is-multiline">
-            {_.map(this.filterCards(), (spell, i) =>
-              <div className="column is-half-tablet is-one-quarter-desktop" key={i}>
+            {_.map(this.filterCards(), (spell) =>
+              <div className="column is-half-tablet is-one-quarter-desktop" key={spell.slug}>
                 <Card
-                  spellIndex={i}
-                  open={this.state.openDescs.includes(i)}
+                  slug={spell.slug}
+                  open={this.state.openDescs.includes(this.slug)}
                   name={spell.name}
                   desc={spell.desc}
                   range={spell.range}

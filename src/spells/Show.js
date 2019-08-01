@@ -1,28 +1,51 @@
 import React from 'react'
 import Card from './Card'
 
+import GoogleImages from 'google-images'
+
 class SpellShow extends React.Component {
   constructor() {
     super()
-    this.state = {}
+    this.state = {
+      img: ''
+    }
+    // this.getImage = this.getImage.bind(this)
   }
 
   componentDidMount() {
-    this.setState({ spell: JSON.parse(localStorage.getItem('spells'))[this.props.match.params.i]})
+    const spells = JSON.parse(localStorage.getItem('spells'))
+    const spell = spells.find(spell => spell.slug === this.props.match.params.slug)
+    console.log(this.props.match.params.slug)
+    this.setState({ spell })
   }
+
+  // getImage() {
+  //   const client = new GoogleImages('004991023930242296851:9-esw8ey0xs', 'AIzaSyAxcTlgo_ZdJqBPO6a2hUj-DajzdTDP1zk')
+  //   client.search(this.state.spell.name)
+  //     .then(images => this.setState({ img: images[0].url }))
+  //     // .catch(err => console.log(err))
+  // }
+  //
+  // componentDidUpdate() {
+  //   this.getImage()
+  // }
+
 
   goTo(location) {
     this.props.history.push(`/${location}`)
   }
 
   render() {
+    // console.log(this.state.img)
     if(!this.state.spell) return null
     return (
       <section className="section">
         <button className="button is-primary" onClick={() => this.goTo('spells')}>◀</button>
         <Card
+          slug={this.state.spell.slug}
           open={true}
           name={this.state.spell.name}
+          img={this.state.img}
           desc={this.state.spell.desc}
           range={this.state.spell.range}
           duration={this.state.spell.duration}

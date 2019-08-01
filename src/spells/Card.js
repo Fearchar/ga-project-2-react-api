@@ -1,10 +1,10 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Card = ({ spellIndex, open, name, img, desc, range, duration, castingTime, level, school, dndClass, toggleDesc}) => {
+const Card = ({ slug, open, name, img, desc, range, duration, castingTime, level, school, dndClass, toggleDesc}) => {
   return(
     <div className="card">
-      <Link to={`/spells/${spellIndex}`}>
+      <Link to={`/spells/${slug}`}>
         <div className="card-header">
           <div className="card-header-title">{name}</div>
         </div>
