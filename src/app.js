@@ -6,6 +6,7 @@ import SpellsIndex from './spells/Index'
 import SpellShow from './spells/Show'
 
 import 'bulma'
+import './style.scss'
 
 class App extends React.Component {
   constructor() {

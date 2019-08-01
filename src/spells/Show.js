@@ -25,10 +25,10 @@ class SpellShow extends React.Component {
   //     .then(images => this.setState({ img: images[0].url }))
   //     // .catch(err => console.log(err))
   // }
-  //
-  // componentDidUpdate() {
-  //   this.getImage()
-  // }
+
+  componentDidUpdate() {
+    // this.getImage()
+  }
 
 
   goTo(location) {
@@ -43,7 +43,7 @@ class SpellShow extends React.Component {
         <button className="button is-primary" onClick={() => this.goTo('spells')}>◀</button>
         <Card
           slug={this.state.spell.slug}
-          open={true}
+          isOpen={true}
           name={this.state.spell.name}
           img={this.state.img}
           desc={this.state.spell.desc}

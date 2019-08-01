@@ -12,7 +12,7 @@ class SpellsIndex extends React.Component {
     this.state = {
       spells: {},
       openDescs: [],
-      formData: {}
+      formData: {},
     }
 
     this.storeFilter = this.storeFilter.bind(this)
