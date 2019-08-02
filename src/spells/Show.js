@@ -3,32 +3,34 @@ import Card from './Card'
 
 import GoogleImages from 'google-images'
 
+
 class SpellShow extends React.Component {
   constructor() {
     super()
     this.state = {
       img: ''
     }
-    // this.getImage = this.getImage.bind(this)
+    this.getImage = this.getImage.bind(this)
   }
 
   componentDidMount() {
     const spells = JSON.parse(localStorage.getItem('spells'))
     const spell = spells.find(spell => spell.slug === this.props.match.params.slug)
     console.log(this.props.match.params.slug)
-    this.setState({ spell })
+    this.setState({ spell }, () => {
+      this.getImage()
+    })
   }
 
-  // getImage() {
-  //   const client = new GoogleImages('004991023930242296851:9-esw8ey0xs', 'AIzaSyAxcTlgo_ZdJqBPO6a2hUj-DajzdTDP1zk')
-  //   client.search(this.state.spell.name)
-  //     .then(images => this.setState({ img: images[0].url }))
-  //     // .catch(err => console.log(err))
-  // }
-
-  componentDidUpdate() {
-    // this.getImage()
+  getImage() {
+    console.log(process.env.GOOGLE_API_KEY)
+    const client = new GoogleImages('004991023930242296851:9-esw8ey0xs', process.env.GOOGLE_API_KEY)
+    client.search(this.state.spell.name)
+      .then(images => this.setState({ img: images[0].url }))
+      // .catch(err => console.log(err))
   }
+
+
 
 
   goTo(location) {

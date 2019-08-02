@@ -87,7 +87,8 @@ class SpellsIndex extends React.Component {
             </div>
           </div>
 
-          <div className="column">
+        <div className="columns">
+          <div className="column is-one-third-tablet is-one-third-desktop">
             <div className="field">
               <div className="select is-fullwidth">
                 <select name="level" onChange={this.storeFilter}>
@@ -107,7 +108,7 @@ class SpellsIndex extends React.Component {
             </div>
           </div>
 
-          <div className="column">
+          <div className="column is-one-third-tablet is-one-third-desktop">
             <div className="field">
               <div className="select is-fullwidth">
                 <select name="class" onChange={this.storeFilter}>
@@ -125,7 +126,7 @@ class SpellsIndex extends React.Component {
             </div>
           </div>
 
-          <div className="column">
+          <div className="column is-one-third-tablet is-one-third-desktop">
             <div className="field">
               <div className="select is-fullwidth">
                 <select name="school" onChange={this.storeFilter}>
@@ -142,10 +143,10 @@ class SpellsIndex extends React.Component {
               </div>
             </div>
           </div>
-
+        </div>
           <div className="columns is-multiline">
             {_.map(this.filterCards(), (spell) =>
-              <div className="column is-half-tablet is-one-quarter-desktop" key={spell.slug}>
+              <div className="column is-one-third-tablet is-one-third-desktop" key={spell.slug}>
                 <Card
                   slug={spell.slug}
                   isOpen={this.state.openDescs.includes(spell.slug)}

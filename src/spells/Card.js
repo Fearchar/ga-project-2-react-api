@@ -10,7 +10,7 @@ const Card = ({ slug, isOpen, name, desc, img, range, duration, castingTime, lev
     <div className="card">
       <Link to={`/spells/${slug}`}>
         <div className={`card-header has-background-${cardStyle.schoolColour[school]}`}>
-          <div className="card-header-title">
+          <div className="hero card-header-title">
             <div className="level">
               <div className="level-left">
                 <div className="level-item">
@@ -38,7 +38,7 @@ const Card = ({ slug, isOpen, name, desc, img, range, duration, castingTime, lev
           <p>{`Duration: ${duration}`}</p>
           <p>{`Casting time ${range}`}</p>
           <p>{`Level: ${level}`}</p>
-          <p>{`Casting time: ${range}`}</p>
+          <p>{`Casting time: ${castingTime}`}</p>
         </div>
       </div>
     </div>
