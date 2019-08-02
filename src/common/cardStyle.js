@@ -11,7 +11,7 @@ const cardStyle = {
   },
   schoolColour: {
     Abjuration: 'white',
-    Conjuration: 'link',
+    Conjuration: 'primary',
     Divination: 'light',
     Enchantment: 'success',
     Evocation: 'danger',

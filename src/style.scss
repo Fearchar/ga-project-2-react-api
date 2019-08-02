@@ -1,6 +1,18 @@
 
 $light: purple;
 $info: orange;
+$link: white;
+$primary: hsl(217, 71%, 53%);
+$text-strong: #e3e3e3;
+$link-hover: #656565;
+
+.stroke {
+  text-shadow:
+   -1px -1px 0 #2b2b2b,
+    1px -1px 0 #2b2b2b,
+    -1px 1px 0 #2b2b2b,
+     1px 1px 0 #2b2b2b;
+}
 
 
 @import '~bulma'

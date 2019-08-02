@@ -2,8 +2,10 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import { HashRouter, Route, Switch } from 'react-router-dom'
 
-import SpellsIndex from './spells/Index'
-import SpellShow from './spells/Show'
+import SpellsIndex from './pages/spells/Index'
+import SpellShow from './pages/spells/Show'
+import Splash from './pages/Splash'
+
 
 import 'bulma'
 import './style.scss'
@@ -18,6 +20,7 @@ class App extends React.Component {
         <Switch>
           <Route path="/spells/:slug" component={SpellShow}/>
           <Route path="/spells" component={SpellsIndex} />
+          <Route path="/" component={Splash} />
         </Switch>
       </HashRouter>
     )

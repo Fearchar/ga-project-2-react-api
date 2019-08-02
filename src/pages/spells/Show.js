@@ -1,16 +1,21 @@
 import React from 'react'
-import Card from './Card'
+import Card from '../../common/Card'
 
 import GoogleImages from 'google-images'
 
+import Modal from '../../common/Modal'
+import descriptions from '../../common/descriptions'
 
 class SpellShow extends React.Component {
   constructor() {
     super()
     this.state = {
-      img: ''
+      img: '',
+      modalActive: '',
+      modalDesc: ''
     }
     this.getImage = this.getImage.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
   componentDidMount() {
@@ -25,11 +30,19 @@ class SpellShow extends React.Component {
   getImage() {
     console.log(process.env.GOOGLE_API_KEY)
     const client = new GoogleImages('004991023930242296851:9-esw8ey0xs', process.env.GOOGLE_API_KEY)
-    client.search(this.state.spell.name)
+    client.search(`illustration ${this.state.spell.name}`)
       .then(images => this.setState({ img: images[0].url }))
       // .catch(err => console.log(err))
   }
 
+  toggleModal(identify) {
+    const desc = descriptions.classes[identify] || descriptions.schools[identify]
+    if (!this.state.modalActive) {
+      this.setState({modalActive: 'is-active', modalDesc: desc})
+    } else {
+      this.setState({modalActive: ''})
+    }
+  }
 
 
 
@@ -42,6 +55,10 @@ class SpellShow extends React.Component {
     if(!this.state.spell) return null
     return (
       <section className="section">
+        <Modal
+          desc={this.state.modalDesc} isActive={this.state.modalActive}
+          toggleModal={this.toggleModal}
+        />
         <button className="button is-primary" onClick={() => this.goTo('spells')}>◀</button>
         <Card
           slug={this.state.spell.slug}
@@ -55,6 +72,7 @@ class SpellShow extends React.Component {
           level={this.state.spell.level}
           school={this.state.spell.school}
           dndClass={this.state.spell.dnd_class}
+          toggleModal={this.toggleModal}
         />
       </section>
     )

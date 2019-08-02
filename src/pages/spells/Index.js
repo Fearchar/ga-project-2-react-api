@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import _ from 'lodash'
 
-import Card from './Card'
+import Card from '../../common/Card'
+import Modal from '../../common/Modal'
+import descriptions from '../../common/descriptions'
 
 class SpellsIndex extends React.Component {
   constructor(){
@@ -13,10 +15,13 @@ class SpellsIndex extends React.Component {
       spells: {},
       openDescs: [],
       formData: {},
+      modalActive: '',
+      modalDesc: ''
     }
 
     this.storeFilter = this.storeFilter.bind(this)
     this.toggleDesc = this.toggleDesc.bind(this)
+    this.toggleModal = this.toggleModal.bind(this)
   }
 
   getSpells() {
@@ -73,11 +78,23 @@ class SpellsIndex extends React.Component {
     }
   }
 
+  toggleModal(identify) {
+    const desc = descriptions.classes[identify] || descriptions.schools[identify]
+    if (!this.state.modalActive) {
+      this.setState({modalActive: 'is-active', modalDesc: desc})
+    } else {
+      this.setState({modalActive: ''})
+    }
+  }
+
   render() {
-    console.log(this.state)
     if (!this.state.spells) return null
     return (
       <section className="section">
+      <Modal
+        desc={this.state.modalDesc} isActive={this.state.modalActive}
+        toggleModal={this.toggleModal}
+      />
         <div className="container">
           <div className="columns">
             <div className="column">
@@ -86,7 +103,6 @@ class SpellsIndex extends React.Component {
               </div>
             </div>
           </div>
-
         <div className="columns">
           <div className="column is-one-third-tablet is-one-third-desktop">
             <div className="field">
@@ -159,6 +175,7 @@ class SpellsIndex extends React.Component {
                   school={spell.school}
                   dndClass={spell.dnd_class}
                   toggleDesc={this.toggleDesc}
+                  toggleModal={this.toggleModal}
                 />
               </div>
             )}
