@@ -6,7 +6,7 @@ DnD Spell Book is a reference site for Dungeons and Dragons fifth edition, givin
 
 To visit the site, please click [here](https://fearchar.github.io/ga-project-2-react-api/#/)
 
-![Dnd Spell Book](https://imgur.com/a/ppVl6Dw)
+![Dnd Spell Book](https://imgur.com/02MdLXr)
 
 ## The Project Brief
 
