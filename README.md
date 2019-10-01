@@ -38,6 +38,8 @@ getSpells() {
 
 Users are then able to filter spells by the character classes, schools of magic, spell level and names of the spells. We used the character classes to colour the spell cards which appear on screen and generate icons in the spell cards top right corner.
 
+![Spell Card](https://imgur.com/O99TGZk)
+
 When the user clicks these icons they get details about the classes associated with them. This is displayed through a modal which overlays the page. This is also true for the schools of magic which appear in the spells details.
 
 Retrieving Google Images
