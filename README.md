@@ -4,7 +4,7 @@
 
 DnD Spell Book is a reference site for Dungeons and Dragons fifth edition, giving users quick and easy access to the rules for spells. It draws data from the Open 5e API, and uses the Google Image API to match the spell titles with appropriate images.
 
-To visit the site, please click [here](https://fearchar.github.io/ga-project-2-react-api/#/
+To visit the site, please click [here](https://fearchar.github.io/ga-project-2-react-api/#/)
 
 ## The Project Brief
 
